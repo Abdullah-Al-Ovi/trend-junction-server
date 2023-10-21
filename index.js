@@ -40,6 +40,13 @@ async function run() {
       res.send(result)
     })
 
+    app.get('/products/:brandname',async(req,res)=>{
+      const brandname = req.params.brandname 
+      const cursor =  productsCollection.find({brandname : brandname})
+      const results = await cursor.toArray()
+      res.send(results)
+    })
+
     // const database = client.db('resellerDB')
   } finally {
     
