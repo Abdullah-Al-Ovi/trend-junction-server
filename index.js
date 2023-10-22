@@ -65,6 +65,24 @@ async function run() {
       const result = await productsCollection.insertOne(product)
       res.send(result)
     })
+    app.put('/products/id/:id',async(req,res)=>{
+      const id = req.params.id
+      const product = req.body
+      const {name,brandname,image,type,price,rating}= product
+      const option = {upsert:true}
+      const updatedProduct ={
+        $set:{
+          name : name,
+          brandname:brandname,
+          image:image,
+          type:type,
+          price:price,
+          rating:rating
+        }
+      }
+      const result = await productsCollection.updateOne({_id: new ObjectId(id)},updatedProduct,option)
+      res.send(result)
+    })
 
     // const database = client.db('resellerDB')
   } finally {
