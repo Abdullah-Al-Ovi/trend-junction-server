@@ -53,6 +53,11 @@ async function run() {
       const result = await usersCollection.insertOne(userInfo)
       res.send(result)
     })
+    app.post('/products',async(req,res)=>{
+      const product = req.body
+      const result = await productsCollection.insertOne(product)
+      res.send(result)
+    })
 
     // const database = client.db('resellerDB')
   } finally {
