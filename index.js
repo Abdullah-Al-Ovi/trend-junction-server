@@ -56,6 +56,18 @@ async function run() {
      
     })
 
+    app.get('/cart',async(req,res)=>{
+      const cursor = cartCollection.find({})
+      const result = await cursor.toArray()
+      res.send(result)
+    })
+    app.get('/cart/:userEmail',async(req,res)=>{
+      const userEmail = req.params.userEmail
+      const cursor = cartCollection.find({user_email : userEmail})
+      const result = await cursor.toArray()
+      res.send(result)
+    })
+
     app.post('/users',async(req,res)=>{
       const userInfo = req.body
       const result = await usersCollection.insertOne(userInfo)
