@@ -34,6 +34,7 @@ async function run() {
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
     const productsCollection = client.db('resellerDB').collection('productsCollection')
     const usersCollection = client.db('resellerDB').collection('usersCollection')
+    const cartCollection = client.db('resellerDB').collection('cartCollection')
 
     app.get('/products',async(req,res)=>{
       const cursor = productsCollection.find({})
@@ -65,6 +66,13 @@ async function run() {
       const result = await productsCollection.insertOne(product)
       res.send(result)
     })
+
+    app.post('/cart',async(req,res)=>{
+      const cartProduct = req.body
+      const result = await cartCollection.insertOne(cartProduct)
+      res.send(result)
+    })
+
     app.put('/products/id/:id',async(req,res)=>{
       const id = req.params.id
       const product = req.body
